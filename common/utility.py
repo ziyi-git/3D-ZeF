@@ -11,7 +11,8 @@ import networkx as nx
 import scipy.spatial.distance as dist
 from scipy import ndimage
 from common.Track import Track
-from sklearn.externals import joblib
+# from sklearn.externals import joblib
+import joblib
 
 
 def readConfig(path):
