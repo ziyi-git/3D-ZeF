@@ -218,7 +218,8 @@ class BgDetector:
         ## Keypoints are determined by the center-point
         filtered = []
         for b in bbs:
-            filtered.append(cv2.KeyPoint(x=b["c_x"],y=b["c_y"], _size = 1))
+            # filtered.append(cv2.KeyPoint(x=b["c_x"],y=b["c_y"], _size = 1))
+            filtered.append(cv2.KeyPoint(x=b["c_x"],y=b["c_y"], size = 1))
 
         return filtered, bbs
   
@@ -511,7 +512,12 @@ class BgDetector:
         
         if img.dtype == bool:
             img = img.astype(np.uint8)*255
-        contours, hierarchy = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)[1:]
+        # contours, hierarchy = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)[1:]
+        # opencv 3.4.1:
+        # image, contours, hierarchy = cv.findContours(image, mode, method[, contours[, hierarchy[, offset]]])
+        # opencv 4.6.0:
+        # cv.findContours(image, mode, method[, contours[, hierarchy[, offset]]]) -> contours, hierarchy
+        contours, hierarchy = cv2.findContours(img, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
         for idx, h in enumerate(hierarchy[0]):
             try:
                 if h[3] > -1:
@@ -1061,6 +1067,7 @@ if __name__ == '__main__':
     video = args["video"]
     useImages = args["images"]
     preDet = args["preDet"]
+    print("useImages: ", useImages)
 
     if args.get("camId", None) is None:
         print('No camera ID given. Exitting.')
@@ -1087,7 +1094,8 @@ if __name__ == '__main__':
     if not os.path.isfile(bgPath):
         print("No background image present") 
         print("... creating one.") 
-        bgExt = BackgroundExtractor(path, camId, video = True)
+        # bgExt = BackgroundExtractor(path, camId, video = True)
+        bgExt = BackgroundExtractor(path, camId, video = False)
         bgExt.collectSamples()
         bg = bgExt.createBackground()
         cv2.imwrite(bgPath, bg)
