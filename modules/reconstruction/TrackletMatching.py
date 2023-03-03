@@ -422,7 +422,8 @@ def combine2DTracklets(df, tm):
             rows = df.iloc[frame_idx]   
 
             # Check if each of the rows have a detection in a different 2D view, and if so calculate the 3D position 
-            if (rows.ix[frame_idx[0]]["cam1_x"] > -1.0 and rows.ix[frame_idx[1]]["cam2_x"] > -1.0) or (rows.ix[frame_idx[0]]["cam2_x"] > -1.0 and rows.ix[frame_idx[1]]["cam1_x"] > -1.0):
+            # if (rows.ix[frame_idx[0]]["cam1_x"] > -1.0 and rows.ix[frame_idx[1]]["cam2_x"] > -1.0) or (rows.ix[frame_idx[0]]["cam2_x"] > -1.0 and rows.ix[frame_idx[1]]["cam1_x"] > -1.0):
+            if (rows.loc[frame_idx[0], "cam1_x"] > -1.0 and rows.loc[frame_idx[1], "cam2_x"] > -1.0) or (rows.loc[frame_idx[0], "cam2_x"] > -1.0 and rows.loc[frame_idx[1], "cam1_x"] > -1.0):
                 row_max = rows.max()
                 drop_idx.extend(frame_idx)
 
