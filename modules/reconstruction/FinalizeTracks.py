@@ -164,7 +164,8 @@ class TrackFinalizer:
         start = max(mtStart, gtStart)
         end = min(mtEnd, gtEnd)
 
-        frames = list(np.linspace(start, end, end-start+1, dtype=np.int))
+        # frames = list(np.linspace(start, end, end-start+1, dtype=np.int))
+        frames = list(np.linspace(start, end, end-start+1, dtype=np.int_))
 
         ## Add the detections just before/after the intersection, if there are any
         for track in [mainTrack, galleryTrack]:
@@ -202,7 +203,8 @@ class TrackFinalizer:
 
         df_total.reset_index(inplace=True, drop=True)
 
-        multi_idx = np.linspace(0, len(df_total)-1, len(df_total), dtype=np.int)
+        # multi_idx = np.linspace(0, len(df_total)-1, len(df_total), dtype=np.int)
+        multi_idx = np.linspace(0, len(df_total)-1, len(df_total), dtype=np.int_)
 
         # Get the indecies needed for the graph, their corresponding frames and 3D positions
         multi_idx, frames, coords = getTrackletFeatures(multi_idx, df_total)
@@ -853,7 +855,8 @@ class TrackFinalizer:
             track = self.tracks[tr]
             ids.append(tr)
             detections.append(len(track.frame))
-            length.append(len(np.linspace(track.frame[0], track.frame[-1], track.frame[-1]-track.frame[0] + 1, dtype=np.int)))
+            # length.append(len(np.linspace(track.frame[0], track.frame[-1], track.frame[-1]-track.frame[0] + 1, dtype=np.int)))
+            length.append(len(np.linspace(track.frame[0], track.frame[-1], track.frame[-1]-track.frame[0] + 1, dtype=np.int_)))
 
             print("Track {}: Start {}, End {}, Length {}, Detections {}".format(tr, track.frame[0], track.frame[-1], length[-1], detections[-1]))
 
