@@ -587,7 +587,9 @@ def csvTracking(path, camId, det, df_fish):
     # Prepare tracker
     tra = Tracker(path, camId)       
     
-    frameList = np.linspace(df_fish["frame"].min(), df_fish["frame"].max(), df_fish["frame"].max() - df_fish["frame"].min() + 1, True, dtype=np.int)
+    # https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+    # frameList = np.linspace(df_fish["frame"].min(), df_fish["frame"].max(), df_fish["frame"].max() - df_fish["frame"].min() + 1, True, dtype=np.int)
+    frameList = np.linspace(df_fish["frame"].min(), df_fish["frame"].max(), df_fish["frame"].max() - df_fish["frame"].min() + 1, True, dtype=np.int_)
 
     for frameCount in frameList:
         #print("Frame: {0}".format(frameCount))        
